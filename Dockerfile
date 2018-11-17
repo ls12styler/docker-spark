@@ -17,4 +17,4 @@ COPY scripts/* /
 
 EXPOSE 8080 7077 6066
 
-CMD /spark/bin/spark-shell --master $SPARK_MASTER
+CMD /start-shell.sh
