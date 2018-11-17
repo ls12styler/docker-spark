@@ -1,0 +1,35 @@
+version: "3.3"
+services:
+  spark-master:
+    image: ls12styler/spark:latest
+    container_name: spark-master
+    hostname: spark-master
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+    networks: 
+      - spark-network
+    environment:
+      - "SPARK_LOCAL_IP=spark-master"
+      - "SPARK_MASTER_PORT=7077"
+      - "SPARK_MASTER_WEBUI_PORT=8080"
+    command: "/start-master.sh"
+  spark-slave:
+    image: ls12styler/spark:latest
+    depends_on:
+      - spark-master
+    ports:
+      - 8080
+    networks: 
+      - spark-network
+    environment:
+      - "SPARK_MASTER=spark://spark-master:7077"
+      - "SPARK_WORKER_WEBUI_PORT=8080"
+    command: "/start-slave.sh"
+networks:
+  spark-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.5.0.0/16
