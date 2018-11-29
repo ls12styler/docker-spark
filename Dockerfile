@@ -3,13 +3,14 @@ FROM java:alpine
 ENV SPARK_MASTER_PORT 7077
 ENV SPARK_MASTER_WEBUI_PORT 8080
 ENV SPARK_MASTER_LOG /spark/logs
+ENV SPARK_VERSION 2.4.0
 
 RUN apk --update --no-cache add \
 		wget tar bash
 
-RUN wget http://apache.mirror.anlx.net/spark/spark-2.3.2/spark-2.3.2-bin-hadoop2.7.tgz
-RUN	tar -xzf spark-2.3.2-bin-hadoop2.7.tgz && \
-	mv spark-2.3.2-bin-hadoop2.7 /spark
+RUN wget http://apache.mirror.anlx.net/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz
+RUN	tar -xzf spark-${SPARK_VERSION}-bin-hadoop2.7.tgz && \
+	mv spark-${SPARK_VERSION}-bin-hadoop2.7 /spark
 
 COPY bashrc /root/.bashrc
 

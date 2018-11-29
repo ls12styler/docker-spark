@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source /root/.bashrc
+
 ARGS=""
 MSG="Running Spark in standalone mode."
 
