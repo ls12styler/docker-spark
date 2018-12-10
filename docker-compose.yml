@@ -16,7 +16,7 @@ services:
     command: "/start-master.sh"
     volumes:
       - "./:/localfiles"
-  spark-slave:
+  spark-worker:
     image: ls12styler/spark:latest
     depends_on:
       - spark-master
@@ -27,7 +27,7 @@ services:
     environment:
       - "SPARK_MASTER=spark://spark-master:7077"
       - "SPARK_WORKER_WEBUI_PORT=8080"
-    command: "/start-slave.sh"
+    command: "/start-worker.sh"
     volumes:
       - "./:/localfiles"
 networks:
