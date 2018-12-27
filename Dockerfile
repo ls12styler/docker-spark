@@ -1,4 +1,4 @@
-FROM openjdk:12-alpine
+FROM openjdk:8-jre-alpine
 
 ENV SPARK_MASTER_PORT 7077
 ENV SPARK_MASTER_WEBUI_PORT 8080
