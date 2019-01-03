@@ -15,7 +15,7 @@ services:
       - "SPARK_MASTER_WEBUI_PORT=8080"
     command: "/start-master.sh"
     volumes:
-      - "./:/localfiles"
+      - "./:/local"
   spark-worker:
     image: ls12styler/spark:latest
     depends_on:
@@ -29,7 +29,7 @@ services:
       - "SPARK_WORKER_WEBUI_PORT=8080"
     command: "/start-worker.sh"
     volumes:
-      - "./:/localfiles"
+      - "./:/local"
 networks:
   spark-network:
     driver: bridge
