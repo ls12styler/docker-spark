@@ -1,0 +1,7 @@
+services:
+  - docker
+script:
+  - docker build -t ls12styler/scala-sbt:latest .
+after_success:
+  - docker run --rm ls12styler/scala-sbt scala -version
+  - docker run --rm ls12styler/scala-sbt sbt sbtVersion
