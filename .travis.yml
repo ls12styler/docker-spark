@@ -1,7 +1,6 @@
 services:
   - docker
 script:
-  - docker build -t ls12styler/scala-sbt:latest .
+  - docker build -t ls12styler/spark:latest .
 after_success:
-  - docker run --rm ls12styler/scala-sbt scala -version
-  - docker run --rm ls12styler/scala-sbt sbt sbtVersion
+  - docker run --rm ls12styler/spark /spark/bin/spark-shell --version
