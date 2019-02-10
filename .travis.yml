@@ -1,6 +1,12 @@
 services:
-  - docker
+- docker
 script:
-  - docker build -t ls12styler/spark:latest .
+- docker build -t ls12styler/spark:latest .
 after_success:
-  - docker run --rm ls12styler/spark /spark/bin/spark-shell --version
+- docker run --rm ls12styler/spark /spark/bin/spark-shell --version
+- if [[ "$TRAVIS_BRANCH" == "master" ]]; then echo "$DOCKER_PASSWORD" | docker login
+  -u "$DOCKER_USERNAME" --password-stdin; docker push ls12styler/scala-sbt ; fi
+env:
+  global:
+  - secure: UveXmNmEsHqBmH5UCvdDgA+iqGSCtgYy6XKWuZS1oOAVmPlseV50C4xzcmAWdqCV660hHJ1oDBsUn38izrBku/YYNFXzpD7rTCX//mAHIvHYDpcd4C1rM/1vkT8E00dnsUK62qxFXsIAVO9HDVSnZYWO779ENrLu+YCCZZ/wHHjBNBUIk8FrBo/xsBjukUGO6OTp7T4ykyNzluuhkSqmRVmRwYAAnyykFr7aahkY3rhjvf492XFFgkf+XPRW0ND4FEuvHrkviJEqq+ctSxGQpTHOa4v5/lq9J0++YoiXHt1OHW1I9aoexD5ETBBLk8BSDpBinixAMEHp+Rjjy/VyjJc7R6zNPfGOUwSYc4J3NcBu+nGRDp6wApaAw9u+NcwTKpMWz0ZlAEFExkUn98W8YhUBgyMAW4uYvEjuhtpA4YXt+49VHZwJPP3/7iDeRYl2In7siVQgADBNk5VBPIDZl8f5NNm9yviPKqgrl/OqBQTgXSJXCRhAFp8dHewZGV3ffBWk2fx4Q5vyYm8jJPuw0mOaYpSxWv6eLfIjhXp5fXXkbFgFxOcbdfVgGDuUs2vCr2ed1012xY4scq0akG1XxgEPpthD91mFbbYnyUf9ODcyuaY7PW0dFEeReZ04VKJ+RdfxdM+GBUsmrQBBl7sNnUVYMzEYOlYUIbpbawrSlEM=
+  - secure: Zoaa7mfumnyT8ij3TvRHOwjpLxTa40dY6Fl2IJsW+1TtLftOX20y2VPJxd2mAkK8A5wsWlgnesJ1KnRjPGKpzOaT37XuxWPjbUr3t81HJtrdP7EBX6JRutWdXPjrw5TRAd+PGCEQ5q9mvYhit0RO9UEr4dx/kJdMCxW6SuVSUckUtlt3Ks88RzbfbV5+hPXfdGiSenzWXG7vvdAj/iitUStg0FjzlPAG9Fr61BZrIGA+cSUr6L6KBD+Jd8ly0/o4JY+V0h0S/vqqMeOIDs9pukr2IFOB/PITC/R2+fTu+Xdl1e94lYS9Eu5oqWeyocGojuWcnTfmDVyZeosAKE6j80aKyGmq98jTiGqik8q+s105V52B9RebamZLR6yulGPDGveaIc9Ogj028xZSIM5vi4t/9Gdk2+ojY3hwv+AGDR5JbAfCSwT6pXqYtRtZOcTMQkUSRoF1lawuIwQpq6WUucUNzjlOyRaJ8pbVK3xJ6bU3n46Hja1fL7QWQg1nj4r54acv67PSVeuOJg1lcSpxnQeB06bJRDmpzhEbRTZV0O6HbQdnVpUbicM1nLqUY1qSj+CnJHWbM2+Lhippxwn/jZxws/gTWfK9RZMy2WQGdOUWFwsraKaSxxsVuyfOrO1NqJ+RKIVGuzZA3MkigB3XL5PziGgaxQHBjLFCasNsHsE=
