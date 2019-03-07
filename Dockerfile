@@ -20,4 +20,4 @@ COPY scripts/* /
 
 EXPOSE 8080 7077 6066
 
-CMD /start-shell.sh
+ENTRYPOINT ["/start-shell.sh"]
