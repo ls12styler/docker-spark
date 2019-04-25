@@ -2,7 +2,7 @@
 
 source /root/.bashrc
 
-ARGS=""
+ARGS="$@"
 MSG="Running Spark in standalone mode."
 
 if [ ! -z "$SPARK_MASTER" ]; then
