@@ -20,6 +20,12 @@ By default, running the image without a command will take you into the Spark she
 docker run --rm -it -e SPARK_MASTER=spark://spark-master:7077 --network docker-spark_spark-network ls12styler/spark:latest
 ```
 
+#### Passing Arguments to `spark-shell`
+
+```
+docker run --rm -it -e SPARK_MASTER=spark://spark-master:7077 --network docker-spark_spark-network ls12styler/spark:latest
+```
+
 ### `bash` shell
 
 You can overide the command like so if you need anything else:

@@ -1,2 +1,0 @@
-SPARK_HOME=/spark
-PATH=$PATH:$SPARK_HOME/bin

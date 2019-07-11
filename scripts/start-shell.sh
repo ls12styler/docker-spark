@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source /root/.bashrc
-
 ARGS="$@"
 MSG="Running Spark in standalone mode."
 
@@ -11,4 +9,4 @@ if [ ! -z "$SPARK_MASTER" ]; then
 fi
 
 echo ${MSG}
-/spark/bin/spark-shell ${ARGS}
+$SPARK_HOME/bin/spark-shell ${ARGS}

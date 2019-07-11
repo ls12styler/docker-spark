@@ -1,23 +1,27 @@
-FROM openjdk:8-jre-alpine
+FROM alpine:latest as downloader
+
+ARG SPARK_VERSION=2.4.3
+
+RUN apk --update --no-cache add \
+		curl tar
+
+RUN curl -o /tmp/spark.tgz http://apache.mirror.anlx.net/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz
+RUN	mkdir -p /spark \
+	&& tar --strip-components=1 -C /spark -xzf /tmp/spark.tgz
+
+
+FROM openjdk:8-alpine
+RUN apk --update --no-cache add bash
 
 ENV SPARK_MASTER_PORT 7077
 ENV SPARK_MASTER_WEBUI_PORT 8080
-ENV SPARK_MASTER_LOG /spark/logs
-ENV SPARK_WORKER_LOG /spark/logs
-ARG SPARK_VERSION=2.4.2
+ENV SPARK_HOME ${SPARK_HOME}
+ENV SPARK_LOGS_DIR ${SPARK_HOME}/logs
+ENV PATH $PATH:${SPARK_HOME}/bin
 
-RUN apk --update --no-cache add \
-		wget tar bash
-
-RUN wget http://apache.mirror.anlx.net/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz
-RUN	tar -xzf spark-${SPARK_VERSION}-bin-hadoop2.7.tgz && \
-	mv spark-${SPARK_VERSION}-bin-hadoop2.7 /spark && \
-	rm spark-${SPARK_VERSION}-bin-hadoop2.7.tgz
-
-COPY bashrc /root/.bashrc
-
-COPY scripts/* /
+COPY scripts/* /usr/local/bin/
+COPY --from=downloader /spark ${SPARK_HOME}
 
 EXPOSE 8080 7077 6066
 
-ENTRYPOINT ["/start-shell.sh"]
+ENTRYPOINT ["start-shell.sh"]
