@@ -9,11 +9,7 @@ services:
       - "7077:7077"
     networks: 
       - spark-network
-    environment:
-      - "SPARK_LOCAL_IP=spark-master"
-      - "SPARK_MASTER_PORT=7077"
-      - "SPARK_MASTER_WEBUI_PORT=8080"
-    entrypoint: "start-master.sh"
+    command: "start-master.sh --ip spark-master --webui-port 8080 --port 7077"
   spark-worker:
     image: ls12styler/spark:2.4.3
     depends_on:
@@ -22,10 +18,7 @@ services:
       - 8080
     networks: 
       - spark-network
-    environment:
-      - "SPARK_MASTER=spark://spark-master:7077"
-      - "SPARK_WORKER_WEBUI_PORT=8080"
-    entrypoint: "start-worker.sh"
+    command: "start-worker.sh --webui-port 8080 spark://spark-master:7077"
     volumes:
       - "./:/local"
 networks:
