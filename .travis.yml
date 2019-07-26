@@ -5,9 +5,8 @@ script:
 deploy:
   provider: script
   script:
-    - docker build -t ls12styler/spark:latest .
-    - docker run --rm ls12styler/spark:latest spark-shell --version
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin; docker push ls12styler/spark:latest
+    - docker build -t ls12styler/spark:latest . && docker run --rm ls12styler/spark:latest spark-shell --version && echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push ls12styler/spark:latest
+  skip_cleanup: true
   on:
     branch: master
 env:
