@@ -9,7 +9,6 @@ RUN curl -o /tmp/spark.tgz http://apache.mirror.anlx.net/spark/spark-${SPARK_VER
 RUN	mkdir -p /spark \
 	&& tar --strip-components=1 -C /spark -xzf /tmp/spark.tgz
 
-
 FROM openjdk:8-alpine
 RUN apk --update --no-cache add bash
 
@@ -24,4 +23,4 @@ COPY --from=downloader /spark ${SPARK_HOME}
 
 EXPOSE 8080 7077 6066
 
-ENTRYPOINT ["start-shell.sh"]
+CMD ["start-shell.sh"]
